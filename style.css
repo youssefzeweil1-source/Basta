@@ -1,0 +1,212 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', Tahoma, sans-serif; }
+
+body {
+  background: linear-gradient(180deg, #1a1a2e 0%, #2d1b3d 100%);
+  color: #f5e6c8;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+}
+
+#game {
+  width: 100%; max-width: 460px;
+  height: 95vh; max-height: 780px;
+  display: flex; flex-direction: column;
+  background: #2d1b3d;
+  border: 3px solid #d4af37;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+  position: relative;
+}
+
+header {
+  display: flex; justify-content: space-around; align-items: center;
+  padding: 12px;
+  background: rgba(0,0,0,0.3);
+  border-bottom: 2px solid #d4af37;
+  font-weight: bold; font-size: 15px;
+}
+
+.hearts { font-size: 14px; letter-spacing: 1px; }
+
+main {
+  flex: 1; display: flex; flex-direction: column;
+  justify-content: space-between; padding: 16px;
+}
+
+#customer-area {
+  min-height: 220px;
+  display: flex; justify-content: center; align-items: center;
+}
+
+#customer {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  animation: pop 0.3s ease-out;
+}
+#customer.hidden { display: none; }
+
+#customer .emoji { font-size: 80px; line-height: 1; }
+
+.order-bubble {
+  background: #fff8e7; color: #2d1b3d;
+  padding: 8px 18px; border-radius: 20px;
+  font-weight: bold; font-size: 16px;
+  position: relative;
+}
+.order-bubble::after {
+  content: ''; position: absolute;
+  top: -8px; left: 50%; transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-bottom-color: #fff8e7; border-top: 0;
+}
+
+.patience-bar {
+  width: 140px; height: 10px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 6px; overflow: hidden;
+  border: 1px solid rgba(212,175,55,0.5);
+}
+.patience-fill {
+  height: 100%; width: 100%;
+  background: linear-gradient(90deg, #2ecc71, #f1c40f);
+  transition: width 0.1s linear;
+}
+.patience-fill.danger { background: linear-gradient(90deg, #e74c3c, #c0392b); }
+
+#stall {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.item {
+  position: relative;
+  background: #d4af37; color: #2d1b3d;
+  padding: 10px 4px; border-radius: 12px;
+  text-align: center; font-weight: bold;
+  cursor: pointer; user-select: none;
+  transition: transform 0.1s, opacity 0.2s;
+}
+.item:active { transform: scale(0.92); }
+.item.empty { opacity: 0.35; pointer-events: none; }
+
+.item-emoji { font-size: 26px; line-height: 1; }
+.item-name { font-size: 12px; margin-top: 4px; }
+
+.item-count {
+  position: absolute; top: -6px; right: -6px;
+  background: #e74c3c; color: #fff;
+  border-radius: 50%; width: 22px; height: 22px;
+  display: flex; justify-content: center; align-items: center;
+  font-size: 12px;
+  border: 2px solid #2d1b3d;
+}
+
+footer {
+  padding: 10px 12px;
+  background: rgba(0,0,0,0.3);
+  border-top: 2px solid #d4af37;
+  display: flex; flex-direction: column; gap: 8px;
+}
+
+.footer-row { display: flex; gap: 8px; }
+
+#market-btn {
+  flex: 0 0 40%;
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white; border: none;
+  padding: 12px; border-radius: 10px;
+  font-size: 15px; font-weight: bold;
+  cursor: pointer; font-family: inherit;
+}
+
+#upgrade-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white; border: none;
+  padding: 12px; border-radius: 10px;
+  font-size: 14px; font-weight: bold;
+  cursor: pointer; font-family: inherit;
+}
+#upgrade-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+#daily-challenge { text-align: center; font-size: 13px; color: #d4af37; }
+
+.feedback {
+  position: fixed; top: 30%; left: 50%;
+  transform: translateX(-50%);
+  background: #2d1b3d; color: #fff;
+  padding: 10px 20px; border-radius: 20px;
+  font-weight: bold; pointer-events: none;
+  animation: floatUp 1s ease-out forwards;
+  z-index: 100; border: 2px solid #d4af37;
+  font-size: 15px;
+}
+
+/* Modals */
+#market-modal, #gameover-modal {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 50; padding: 16px;
+}
+#market-modal.hidden, #gameover-modal.hidden { display: none; }
+
+.modal-content {
+  background: #2d1b3d;
+  border: 3px solid #d4af37;
+  border-radius: 16px;
+  padding: 20px;
+  width: 100%; max-width: 400px;
+  max-height: 90%; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 12px;
+}
+
+.modal-content h2 { text-align: center; color: #d4af37; font-size: 20px; }
+.hint { font-size: 13px; text-align: center; color: #c9b88a; line-height: 1.5; }
+
+#market-items { display: flex; flex-direction: column; gap: 8px; }
+
+.market-row {
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(0,0,0,0.3);
+  padding: 8px 12px; border-radius: 10px;
+  border: 1px solid rgba(212,175,55,0.3);
+}
+
+.market-row .info { display: flex; align-items: center; gap: 8px; font-weight: bold; }
+.market-row .info .emoji { font-size: 24px; }
+.market-row .info .count { font-size: 12px; color: #c9b88a; }
+
+.market-row button {
+  background: #27ae60; color: #fff; border: none;
+  padding: 8px 12px; border-radius: 8px;
+  font-weight: bold; cursor: pointer;
+  font-family: inherit; font-size: 13px;
+}
+.market-row button:disabled { opacity: 0.35; cursor: not-allowed; }
+
+#close-market, #restart-btn {
+  background: linear-gradient(135deg, #d4af37, #b8941f);
+  color: #2d1b3d; border: none;
+  padding: 12px; border-radius: 10px;
+  font-size: 15px; font-weight: bold;
+  cursor: pointer; font-family: inherit;
+}
+
+#final-score { text-align: center; font-size: 15px; color: #d4af37; font-weight: bold; }
+
+@keyframes floatUp {
+  0%   { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -70px); }
+}
+@keyframes pop {
+  0% { transform: scale(0); } 80% { transform: scale(1.15); } 100% { transform: scale(1); }
+}
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); } 75% { transform: translateX(6px); }
+}
+.shake { animation: shake 0.3s; }
