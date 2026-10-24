@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بسطة رمضان 🏮</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="game">
+
+    <header>
+      <div class="stat">💰 <span id="money">100</span></div>
+      <div class="stat hearts" id="hearts">❤️❤️❤️🖤🖤</div>
+      <div class="stat">🏮 <span id="lanterns">0</span></div>
+    </header>
+
+    <main>
+      <div id="customer-area">
+        <div id="customer" class="hidden">
+          <div class="order-bubble">عايز <span id="order-item">فول</span></div>
+          <div class="emoji" id="customer-emoji">🧑</div>
+          <div class="patience-bar">
+            <div class="patience-fill" id="patience-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="stall">
+        <div class="item" data-item="فول">
+          <div class="item-emoji">🫘</div>
+          <div class="item-name">فول</div>
+          <div class="item-count" data-count="فول">3</div>
+        </div>
+        <div class="item" data-item="طعمية">
+          <div class="item-emoji">🧆</div>
+          <div class="item-name">طعمية</div>
+          <div class="item-count" data-count="طعمية">3</div>
+        </div>
+        <div class="item" data-item="كشري">
+          <div class="item-emoji">🍚</div>
+          <div class="item-name">كشري</div>
+          <div class="item-count" data-count="كشري">3</div>
+        </div>
+        <div class="item" data-item="محشي">
+          <div class="item-emoji">🍆</div>
+          <div class="item-name">محشي</div>
+          <div class="item-count" data-count="محشي">3</div>
+        </div>
+        <div class="item" data-item="كنافة">
+          <div class="item-emoji">🍮</div>
+          <div class="item-name">كنافة</div>
+          <div class="item-count" data-count="كنافة">3</div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-row">
+        <button id="market-btn">🛒 السوق</button>
+        <button id="upgrade-btn">⬆️ طوّر (<span id="upgrade-cost">150</span>)</button>
+      </div>
+      <div id="daily-challenge">تحدي اليوم: 0 / 10</div>
+    </footer>
+
+    <!-- السوق -->
+    <div id="market-modal" class="hidden">
+      <div class="modal-content">
+        <h2>🛒 سوق الحارة</h2>
+        <p class="hint">اشتري مكونات عشان تقدر تخدم الزباين. الوقت بيقف لما السوق مفتوح.</p>
+        <div id="market-items"></div>
+        <button id="close-market">خلصت ✅</button>
+      </div>
+    </div>
+
+    <!-- شاشة نهاية اليوم -->
+    <div id="gameover-modal" class="hidden">
+      <div class="modal-content">
+        <h2>😔 قفلت البسطة</h2>
+        <p class="hint">السمعة خلصت. حاول تاني!</p>
+        <p id="final-score"></p>
+        <button id="restart-btn">من الأول 🔁</button>
+      </div>
+    </div>
+
+  </div>
+  <script src="game.js"></script>
+</body>
+  </html>
